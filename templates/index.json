@@ -84,7 +84,7 @@
         "banner-perros": {
           "type": "banner",
           "settings": {
-            "title": "Accesorios para Perros 🐶",
+            "title": "Accesorios para Perros",
             "subtitle": "",
             "button_label": "Ver colección",
             "button_url": "/collections/perros",
@@ -94,7 +94,7 @@
         "banner-gatos": {
           "type": "banner",
           "settings": {
-            "title": "Accesorios para Gatos 🐱",
+            "title": "Accesorios para Gatos",
             "subtitle": "",
             "button_label": "Ver colección",
             "button_url": "/collections/gatos",
