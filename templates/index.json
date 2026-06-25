@@ -24,7 +24,7 @@
         "bloque-perros": {
           "type": "category",
           "settings": {
-            "label": "Perros 🐶",
+            "label": "Perros",
             "collection_handle": "perros",
             "icon_type": "perro"
           }
@@ -32,7 +32,7 @@
         "bloque-gatos": {
           "type": "category",
           "settings": {
-            "label": "Gatos 🐱",
+            "label": "Gatos",
             "collection_handle": "gatos",
             "icon_type": "gato"
           }
@@ -40,7 +40,7 @@
         "bloque-destacados": {
           "type": "category",
           "settings": {
-            "label": "Destacados ⭐",
+            "label": "Destacados",
             "collection_handle": "destacados",
             "icon_type": "custom"
           }

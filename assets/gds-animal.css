@@ -452,6 +452,12 @@
   position: relative;
 }
 .gds-cat-circle svg { width: 52px; height: 52px; }
+.gds-cat-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
 .gds-cat-item:hover .gds-cat-circle,
 .gds-cat-item.active .gds-cat-circle {
   background: var(--gds-gold);

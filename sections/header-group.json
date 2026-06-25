@@ -2,39 +2,6 @@
   "type": "header",
   "name": "Header",
   "sections": {
-    "gds_announcement_bar": {
-      "type": "gds-announcement-bar",
-      "blocks": {
-        "ann_1": {
-          "type": "announcement",
-          "settings": {
-            "text": "🌎 Enviamos a toda América Latina y el mundo",
-            "url": ""
-          }
-        },
-        "ann_2": {
-          "type": "announcement",
-          "settings": {
-            "text": "🐾 Productos premium para tu mascota con envío incluido",
-            "url": ""
-          }
-        },
-        "ann_3": {
-          "type": "announcement",
-          "settings": {
-            "text": "⭐ Más de 10.000 mascotas felices en toda América",
-            "url": ""
-          }
-        }
-      },
-      "block_order": ["ann_1", "ann_2", "ann_3"],
-      "settings": {
-        "bg_color": "#F5C518",
-        "text_color": "#0D1B4B",
-        "rotation_speed": 5,
-        "show_arrows": true
-      }
-    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -106,7 +73,6 @@
     }
   },
   "order": [
-    "gds_announcement_bar",
     "header_section"
   ]
 }
