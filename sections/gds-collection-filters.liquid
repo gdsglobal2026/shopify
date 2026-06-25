@@ -1,0 +1,33 @@
+<div class="gds-container">
+  <div class="gds-filter-bar">
+    <a href="/collections/all"
+       class="gds-filter-btn {%- if collection.handle == 'all' -%} gds-filter-btn--active{%- endif -%}">
+      Todos
+    </a>
+    <a href="/collections/perros"
+       class="gds-filter-btn {%- if collection.handle == 'perros' -%} gds-filter-btn--active{%- endif -%}">
+      Perros
+    </a>
+    <a href="/collections/gatos"
+       class="gds-filter-btn {%- if collection.handle == 'gatos' -%} gds-filter-btn--active{%- endif -%}">
+      Gatos
+    </a>
+    <a href="/collections/destacados"
+       class="gds-filter-btn {%- if collection.handle == 'destacados' -%} gds-filter-btn--active{%- endif -%}">
+      Destacados
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Filtros de Colección GDS",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Filtros de Colección GDS"
+    }
+  ]
+}
+{% endschema %}

@@ -472,6 +472,48 @@
   color: var(--gds-dark);
 }
 
+/* ===== FILTROS DE CATÁLOGO ===== */
+.gds-filter-bar {
+  display: flex;
+  gap: 12px;
+  padding: 24px 0;
+  flex-wrap: wrap;
+}
+.gds-filter-btn {
+  padding: 10px 24px;
+  border-radius: 9999px;
+  border: 2px solid #0D1B4B;
+  color: #0D1B4B;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: white;
+}
+.gds-filter-btn:hover,
+.gds-filter-btn--active {
+  background: #0D1B4B;
+  color: white;
+}
+
+/* ===== CARDS DE CATÁLOGO ===== */
+.card-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-wrapper:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  transform: translateY(-4px);
+}
+.card__heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #0D1B4B;
+}
+
 /* ===== PRODUCTOS DESTACADOS ===== */
 .gds-products { padding: 72px 0; background: var(--gds-bg); }
 

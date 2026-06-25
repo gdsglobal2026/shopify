@@ -1,0 +1,83 @@
+<section class="gds-coll-header"
+  style="background: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="gds-container">
+
+    <h1 class="gds-coll-title">{{ collection.title }}</h1>
+    <div class="gds-underline-bar"></div>
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="gds-coll-sub">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.show_description and collection.description != blank -%}
+      <div class="gds-coll-desc">{{ collection.description }}</div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .gds-coll-header {
+    padding: 56px 0 48px;
+    text-align: center;
+  }
+  .gds-coll-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+  .gds-coll-sub {
+    margin: 16px 0 0;
+    font-size: 1rem;
+    opacity: 0.85;
+    font-family: 'Poppins', sans-serif;
+  }
+  .gds-coll-desc {
+    margin-top: 16px;
+    font-size: 0.95rem;
+    opacity: 0.75;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Encabezado de Colección GDS",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Encontrá todo lo que necesita tu mascota"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Mostrar descripción de la colección",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo",
+      "default": "#0D1B4B"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color de texto",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Encabezado de Colección GDS"
+    }
+  ]
+}
+{% endschema %}
