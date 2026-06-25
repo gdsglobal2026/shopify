@@ -1,0 +1,133 @@
+{%- liquid
+  assign bg_color    = section.settings.bg_color
+  assign text_color  = section.settings.text_color
+  assign show_arrows = section.settings.show_arrows
+-%}
+
+<div
+  class="gds-ann-bar"
+  style="background-color: {{ bg_color }}; color: {{ text_color }}; padding: 10px 0; text-align: center; position: relative;"
+  role="region"
+  aria-label="Avisos de la tienda"
+>
+  {%- if show_arrows and section.blocks.size > 1 -%}
+    <button
+      class="gds-ann-prev"
+      aria-label="Anuncio anterior"
+      style="position:absolute;left:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:inherit;font-size:1.4rem;cursor:pointer;opacity:.7;line-height:1;"
+    >&#8249;</button>
+  {%- endif -%}
+
+  <div style="display:flex;justify-content:center;align-items:center;padding:0 48px;min-height:1.4em;">
+    {%- for block in section.blocks -%}
+      <p
+        class="gds-ann-item"
+        {{ block.shopify_attributes }}
+        style="font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.2px;margin:0;"
+        {% unless forloop.first %}hidden{% endunless %}
+      >
+        {%- if block.settings.url != blank -%}
+          <a href="{{ block.settings.url }}" style="color:inherit;text-decoration:underline;">
+            {{- block.settings.text -}}
+          </a>
+        {%- else -%}
+          {{- block.settings.text -}}
+        {%- endif -%}
+      </p>
+    {%- endfor -%}
+  </div>
+
+  {%- if show_arrows and section.blocks.size > 1 -%}
+    <button
+      class="gds-ann-next"
+      aria-label="Siguiente anuncio"
+      style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:inherit;font-size:1.4rem;cursor:pointer;opacity:.7;line-height:1;"
+    >&#8250;</button>
+  {%- endif -%}
+</div>
+
+<script>
+(function() {
+  const bar = document.querySelector(".gds-ann-bar");
+  if (!bar) return;
+  const items = bar.querySelectorAll(".gds-ann-item");
+  if (items.length <= 1) return;
+  let idx = 0;
+  const show = i => {
+    items.forEach((el, j) => el.hidden = i !== j);
+    idx = i;
+  };
+  const speed = {{ section.settings.rotation_speed | times: 1000 }};
+  let timer = setInterval(() => show((idx + 1) % items.length), speed);
+  bar.querySelector(".gds-ann-prev")?.addEventListener("click", () => {
+    clearInterval(timer);
+    show((idx - 1 + items.length) % items.length);
+    timer = setInterval(() => show((idx + 1) % items.length), speed);
+  });
+  bar.querySelector(".gds-ann-next")?.addEventListener("click", () => {
+    clearInterval(timer);
+    show((idx + 1) % items.length);
+    timer = setInterval(() => show((idx + 1) % items.length), speed);
+  });
+  show(0);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Anuncios GDS",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Anuncio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto del anuncio",
+          "default": "Bienvenido a GDS Animal"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Enlace (opcional)"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo",
+      "default": "#F5C518"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color de texto",
+      "default": "#0D1B4B"
+    },
+    {
+      "type": "range",
+      "id": "rotation_speed",
+      "label": "Velocidad de rotación (segundos)",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 5,
+      "unit": "s"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Mostrar flechas de navegación",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

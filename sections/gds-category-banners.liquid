@@ -1,0 +1,173 @@
+<div class="gds-banners">
+  <div class="gds-container">
+    <div class="gds-banners-grid">
+      {%- for block in section.blocks -%}
+        {%- assign overlay_alpha = block.settings.overlay_opacity | divided_by: 100.0 -%}
+        <div
+          class="gds-banner-item"
+          {{ block.shopify_attributes }}
+          {%- if block.settings.image != blank -%}
+            style="background-image: url({{ block.settings.image | image_url: width: 600 }});"
+          {%- endif -%}
+        >
+          <div
+            class="gds-banner-overlay"
+            style="background-color: rgba(0,0,0,{{ overlay_alpha }});"
+            aria-hidden="true"
+          ></div>
+
+          <div class="gds-banner-content">
+            {%- if block.settings.title != blank -%}
+              <h3 class="gds-banner-title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.subtitle != blank -%}
+              <p class="gds-banner-subtitle">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.button_label != blank -%}
+              <a
+                href="{{ block.settings.button_url | default: routes.collections_url }}"
+                class="gds-btn gds-btn--gold"
+              >
+                {{- block.settings.button_label -}}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+.gds-banners { padding: 48px 0; }
+
+.gds-banners-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.gds-banner-item {
+  position: relative;
+  min-height: 340px;
+  border-radius: var(--gds-r-lg, 20px);
+  overflow: hidden;
+  background-color: var(--gds-navy, #0D1B4B);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+.gds-banner-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.gds-banner-content {
+  position: relative;
+  z-index: 1;
+  padding: 32px;
+  width: 100%;
+}
+
+.gds-banner-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.gds-banner-subtitle {
+  color: rgba(255, 255, 255, .85);
+  font-size: .95rem;
+  margin: 0 0 20px;
+}
+
+@media (max-width: 767px) {
+  .gds-banners-grid { grid-template-columns: 1fr; }
+  .gds-banner-item { min-height: 260px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Banners GDS",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen de fondo"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Nueva colección"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtítulo"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto del botón",
+          "default": "Ver colección"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Enlace del botón"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Opacidad del overlay",
+          "min": 0,
+          "max": 70,
+          "step": 5,
+          "default": 40,
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Banners GDS",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "title": "Accesorios para Perros 🐶",
+            "button_label": "Ver colección",
+            "button_url": "/collections/perros",
+            "overlay_opacity": 40
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "title": "Accesorios para Gatos 🐱",
+            "button_label": "Ver colección",
+            "button_url": "/collections/gatos",
+            "overlay_opacity": 40
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
