@@ -1,0 +1,170 @@
+<section class="gds-categories">
+  <div class="gds-container">
+
+    <div class="gds-sec-head">
+      <h2>{{ section.settings.title }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p>{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      <div class="gds-underline-bar"></div>
+    </div>
+
+    <div class="gds-cat-grid">
+      {%- for block in section.blocks -%}
+        <a
+          href="{{ routes.collections_url }}/{{ block.settings.collection_handle }}"
+          class="gds-cat-item"
+          {{ block.shopify_attributes }}
+          aria-label="{{ block.settings.label }}"
+        >
+          <div class="gds-cat-circle">
+            {%- case block.settings.icon_type -%}
+
+              {%- when 'perro' -%}
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" focusable="false">
+                  <ellipse cx="32" cy="42" rx="16" ry="12"/>
+                  <circle cx="32" cy="23" r="11"/>
+                  <ellipse cx="22.5" cy="15" rx="5" ry="7" transform="rotate(-18 22.5 15)"/>
+                  <ellipse cx="41.5" cy="15" rx="5" ry="7" transform="rotate(18 41.5 15)"/>
+                  <circle cx="27.5" cy="23" r="1.8" fill="currentColor"/>
+                  <circle cx="36.5" cy="23" r="1.8" fill="currentColor"/>
+                  <ellipse cx="32" cy="28.5" rx="3.5" ry="2" fill="currentColor"/>
+                  <path d="M16 50 Q13 56 10 58"/>
+                  <path d="M48 50 Q51 56 54 58"/>
+                  <path d="M44 47 Q54 50 52 58"/>
+                </svg>
+
+              {%- when 'gato' -%}
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" focusable="false">
+                  <ellipse cx="32" cy="42" rx="14" ry="11"/>
+                  <circle cx="32" cy="23" r="11"/>
+                  <polygon points="20,15 16,4 25,12"/>
+                  <polygon points="44,15 48,4 39,12"/>
+                  <circle cx="27.5" cy="22" r="1.8" fill="currentColor"/>
+                  <circle cx="36.5" cy="22" r="1.8" fill="currentColor"/>
+                  <line x1="22" y1="27" x2="10" y2="25"/>
+                  <line x1="22" y1="29.5" x2="10" y2="29.5"/>
+                  <line x1="22" y1="32" x2="10" y2="34"/>
+                  <line x1="42" y1="27" x2="54" y2="25"/>
+                  <line x1="42" y1="29.5" x2="54" y2="29.5"/>
+                  <line x1="42" y1="32" x2="54" y2="34"/>
+                  <path d="M46 43 Q56 46 54 57"/>
+                  <path d="M18 50 Q14 55 12 58"/>
+                </svg>
+
+              {%- when 'custom' -%}
+                {%- if block.settings.custom_svg != blank -%}
+                  {{ block.settings.custom_svg }}
+                {%- else -%}
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round"
+                       aria-hidden="true" focusable="false">
+                    <polygon points="32,6 39,24 58,24 44,35 49,53 32,42 15,53 20,35 6,24 25,24"/>
+                  </svg>
+                {%- endif -%}
+
+            {%- endcase -%}
+          </div>
+
+          <span class="gds-cat-name">{{ block.settings.label }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categorías GDS",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título de sección",
+      "default": "Comprá por Categoría"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Encontrá todo lo que necesita tu mascota en un solo lugar"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoría",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Nombre visible",
+          "default": "Perros"
+        },
+        {
+          "type": "text",
+          "id": "collection_handle",
+          "label": "Handle de la colección",
+          "info": "Ej: perros → /collections/perros",
+          "default": "perros"
+        },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Ícono",
+          "options": [
+            { "value": "perro",  "label": "Perro" },
+            { "value": "gato",   "label": "Gato" },
+            { "value": "custom", "label": "SVG personalizado" }
+          ],
+          "default": "perro"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_svg",
+          "label": "SVG personalizado",
+          "info": "Pegar código SVG completo. Solo se usa si el ícono es 'SVG personalizado'."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Categorías GDS",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "label": "Perros 🐶",
+            "collection_handle": "perros",
+            "icon_type": "perro"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Gatos 🐱",
+            "collection_handle": "gatos",
+            "icon_type": "gato"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Destacados ⭐",
+            "collection_handle": "destacados",
+            "icon_type": "custom"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

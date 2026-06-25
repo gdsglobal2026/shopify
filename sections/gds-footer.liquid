@@ -1,0 +1,412 @@
+{%- assign tienda_menu = linklists[section.settings.footer_menu] -%}
+{%- assign ayuda_menu  = linklists[section.settings.footer_help_menu] -%}
+
+<div class="gds-footer">
+  <div class="gds-container">
+    <div class="gds-footer-grid">
+
+      {{- '<!-- Columna 1: Marca + Redes -->' -}}
+      <div class="gds-footer-brand">
+        <p class="gds-footer-logo">{{ shop.name }}</p>
+
+        {%- if section.settings.brand_description != blank -%}
+          <p class="gds-footer-desc">{{ section.settings.brand_description }}</p>
+        {%- endif -%}
+
+        <div class="gds-footer-social">
+          {%- if section.settings.social_instagram != blank -%}
+            <a href="{{ section.settings.social_instagram }}" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_tiktok != blank -%}
+            <a href="{{ section.settings.social_tiktok }}" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.16 8.16 0 0 0 4.77 1.52V7.12a4.85 4.85 0 0 1-1-.43z"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_facebook != blank -%}
+            <a href="{{ section.settings.social_facebook }}" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_youtube != blank -%}
+            <a href="{{ section.settings.social_youtube }}" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {{- '<!-- Columna 2: Links de navegación -->' -}}
+      <div class="gds-footer-nav">
+        <div class="gds-footer-links-group">
+          <h5 class="gds-footer-links-title">Tienda</h5>
+          <ul>
+            {%- if tienda_menu.links.size > 0 -%}
+              {%- for link in tienda_menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            {%- else -%}
+              <li><a href="{{ routes.collections_url }}/perros">Perros</a></li>
+              <li><a href="{{ routes.collections_url }}/gatos">Gatos</a></li>
+              <li><a href="{{ routes.collections_url }}/destacados">Destacados</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+
+        <div class="gds-footer-links-group">
+          <h5 class="gds-footer-links-title">Ayuda</h5>
+          <ul>
+            {%- if ayuda_menu.links.size > 0 -%}
+              {%- for link in ayuda_menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            {%- else -%}
+              <li><a href="/pages/envios">Envíos</a></li>
+              <li><a href="/pages/devoluciones">Devoluciones</a></li>
+              <li><a href="/pages/contacto">Contacto</a></li>
+              <li><a href="/pages/sobre-nosotros">Sobre Nosotros</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+      </div>
+
+      {{- '<!-- Columna 3: Newsletter -->' -}}
+      <div class="gds-footer-newsletter">
+        <h4 class="gds-footer-nl-title">{{ section.settings.newsletter_title }}</h4>
+        <p class="gds-footer-nl-sub">{{ section.settings.newsletter_subtitle }}</p>
+
+        {%- form 'customer', id: 'gds-newsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="gds-nl-row">
+            <input
+              type="email"
+              name="contact[email]"
+              placeholder="{{ section.settings.newsletter_placeholder }}"
+              required
+              aria-label="{{ section.settings.newsletter_placeholder }}"
+              class="gds-nl-input"
+            >
+            <button type="submit" class="gds-btn gds-btn--gold gds-nl-btn">
+              {{ section.settings.newsletter_button }}
+            </button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <p class="gds-newsletter-success" aria-live="polite">
+              ¡Gracias! Te avisamos de todas las novedades.
+            </p>
+          {%- else -%}
+            <p class="gds-newsletter-success" aria-live="polite" hidden></p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+    </div>
+
+    {{- '<!-- Barra inferior: íconos de pago + copyright -->' -}}
+    <div class="gds-footer-bottom">
+      <div class="gds-payment-icons">
+        <svg viewBox="0 0 50 32" class="gds-pay-icon" aria-label="Visa" role="img">
+          <rect width="50" height="32" rx="5" fill="#1A1F71"/>
+          <text x="25" y="22" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="700" font-style="italic">VISA</text>
+        </svg>
+
+        <svg viewBox="0 0 50 32" class="gds-pay-icon" aria-label="Mastercard" role="img">
+          <rect width="50" height="32" rx="5" fill="#252525"/>
+          <circle cx="19" cy="16" r="9" fill="#EB001B"/>
+          <circle cx="31" cy="16" r="9" fill="#F79E1B"/>
+          <path d="M25 7.5a9 9 0 0 1 0 17A9 9 0 0 1 25 7.5z" fill="#FF5F00"/>
+        </svg>
+
+        <svg viewBox="0 0 50 32" class="gds-pay-icon" aria-label="American Express" role="img">
+          <rect width="50" height="32" rx="5" fill="#2557D6"/>
+          <text x="25" y="12" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" letter-spacing="0.5">AMERICAN</text>
+          <text x="25" y="22" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="0.5">EXPRESS</text>
+        </svg>
+
+        <svg viewBox="0 0 50 32" class="gds-pay-icon" aria-label="Mercado Pago" role="img">
+          <rect width="50" height="32" rx="5" fill="#009EE3"/>
+          <text x="25" y="21" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="11" font-weight="700">MP</text>
+        </svg>
+
+        <svg viewBox="0 0 50 32" class="gds-pay-icon" aria-label="Stripe" role="img">
+          <rect width="50" height="32" rx="5" fill="#635BFF"/>
+          <text x="25" y="21" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="10" font-weight="500">stripe</text>
+        </svg>
+      </div>
+
+      <p class="gds-footer-copy">© {{ section.settings.copyright_text }}</p>
+      {%- render 'gds-localization' -%}
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('gds-newsletter');
+  if (!form) return;
+  var row = form.querySelector('.gds-nl-row');
+  var success = form.querySelector('.gds-newsletter-success');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    fetch(form.action, { method: 'POST', body: new FormData(form) })
+      .then(function () {
+        if (row) row.style.display = 'none';
+        if (success) {
+          success.hidden = false;
+          success.textContent = '¡Gracias! Te avisamos de todas las novedades.';
+        }
+      })
+      .catch(function () { form.submit(); });
+  });
+})();
+</script>
+
+{% stylesheet %}
+.gds-footer {
+  background: var(--gds-navy, #0D1B4B);
+  color: #fff;
+  padding: 72px 0 0;
+}
+
+.gds-footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.3fr;
+  gap: 48px;
+}
+
+/* --- Columna 1: Marca --- */
+.gds-footer-logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gds-gold, #F5C518);
+  margin: 0 0 16px;
+}
+
+.gds-footer-desc {
+  font-size: .9rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, .72);
+  margin: 0 0 24px;
+}
+
+.gds-footer-social { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.gds-footer-social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+
+.gds-footer-social a:hover {
+  background: var(--gds-gold, #F5C518);
+  color: var(--gds-navy, #0D1B4B);
+}
+
+.gds-footer-social svg { width: 18px; height: 18px; }
+
+/* --- Columna 2: Links --- */
+.gds-footer-nav { display: flex; gap: 32px; }
+.gds-footer-links-group { flex: 1; }
+
+.gds-footer-links-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--gds-gold, #F5C518);
+  text-transform: uppercase;
+  letter-spacing: .9px;
+  margin: 0 0 14px;
+}
+
+.gds-footer-nav ul { list-style: none; padding: 0; margin: 0; }
+.gds-footer-nav li { margin-bottom: 10px; }
+
+.gds-footer-nav a {
+  color: rgba(255, 255, 255, .72);
+  text-decoration: none;
+  font-size: .9rem;
+  transition: color .2s;
+}
+
+.gds-footer-nav a:hover { color: #fff; }
+
+/* --- Columna 3: Newsletter --- */
+.gds-footer-nl-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 6px;
+}
+
+.gds-footer-nl-sub {
+  color: rgba(255, 255, 255, .72);
+  font-size: .88rem;
+  margin: 0 0 18px;
+}
+
+.gds-nl-row { display: flex; gap: 8px; }
+
+.gds-nl-input {
+  flex: 1;
+  padding: 11px 14px;
+  border: 1.5px solid rgba(255, 255, 255, .2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .07);
+  color: #fff;
+  font-size: .88rem;
+  min-width: 0;
+}
+
+.gds-nl-input::placeholder { color: rgba(255, 255, 255, .45); }
+.gds-nl-input:focus { outline: none; border-color: var(--gds-gold, #F5C518); }
+
+.gds-nl-btn { white-space: nowrap; padding: 11px 18px; }
+
+.gds-newsletter-success {
+  color: var(--gds-gold, #F5C518);
+  font-size: .88rem;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* --- Barra inferior --- */
+.gds-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 24px 0;
+  margin-top: 48px;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.gds-payment-icons { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.gds-pay-icon { width: 50px; height: 32px; }
+
+.gds-footer-copy {
+  color: rgba(255, 255, 255, .45);
+  font-size: .8rem;
+  margin: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 899px) {
+  .gds-footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .gds-footer-nav { gap: 24px; }
+}
+
+@media (max-width: 599px) {
+  .gds-footer-nav { flex-direction: column; gap: 28px; }
+  .gds-nl-row { flex-direction: column; }
+  .gds-footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Footer GDS",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Descripción de la marca",
+      "default": "Productos premium para perros y gatos. Enviamos a toda América Latina y el mundo hispanohablante."
+    },
+    {
+      "type": "header",
+      "content": "Redes sociales"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube"
+    },
+    {
+      "type": "header",
+      "content": "Menús del footer"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Menú Tienda",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_help_menu",
+      "label": "Menú Ayuda"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Título",
+      "default": "Novedades y ofertas"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_subtitle",
+      "label": "Subtítulo",
+      "default": "Suscribite y enterate primero"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Placeholder del campo email",
+      "default": "Tu correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Texto del botón",
+      "default": "Suscribirme"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Texto de copyright",
+      "default": "2026 GDS Animal."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer GDS"
+    }
+  ]
+}
+{% endschema %}

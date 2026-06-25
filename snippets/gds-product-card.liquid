@@ -1,0 +1,77 @@
+{%- liquid
+  assign show_badge = show_badge | default: true
+-%}
+
+<article class="gds-card">
+
+  <a href="{{ product.url }}" class="gds-card-link" aria-label="{{ product.title }}">
+
+    {%- comment -%} ── IMAGEN ── {%- endcomment -%}
+    <div class="gds-card-img-wrap">
+      {%- if product.featured_image -%}
+        {{ product.featured_image
+           | image_url: width: 400
+           | image_tag:
+               loading: "lazy",
+               width: 400,
+               height: 400,
+               alt: product.featured_image.alt | default: product.title,
+               class: "gds-card-img" }}
+      {%- else -%}
+        <svg class="gds-card-img-placeholder" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="8" y="8" width="64" height="64" rx="8" stroke="#b8c4d8" stroke-width="1.5"/>
+          <path d="M20 54 L30 40 L40 48 L50 36 L60 54Z" stroke="#b8c4d8" stroke-width="1.5"/>
+          <circle cx="26" cy="30" r="6" stroke="#b8c4d8" stroke-width="1.5"/>
+        </svg>
+      {%- endif -%}
+
+      {%- comment -%} ── BADGE DE CATEGORÍA ── {%- endcomment -%}
+      {%- if show_badge -%}
+        {%- if product.tags contains "perros" -%}
+          <span class="gds-badge gds-badge--perros">🐶 Perros</span>
+        {%- elsif product.tags contains "gatos" -%}
+          <span class="gds-badge gds-badge--gatos">🐱 Gatos</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ── CUERPO ── {%- endcomment -%}
+    <div class="gds-card-body">
+      <h3 class="gds-card-name">{{ product.title }}</h3>
+
+      {%- comment -%} ── PRECIO ── {%- endcomment -%}
+      <div class="gds-card-footer">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="gds-price-old">{{ product.compare_at_price | money }}</span>
+          <span class="gds-price-current gds-price-current--sale">{{ product.price | money }}</span>
+          {%- assign saved = product.compare_at_price | minus: product.price -%}
+          {%- assign pct = saved | times: 100 | divided_by: product.compare_at_price -%}
+          <span class="gds-badge gds-badge--sale" style="position:static;margin-left:auto;">-{{ pct }}%</span>
+        {%- else -%}
+          <span class="gds-price-current">{{ product.price | money }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+  </a>
+
+  {%- comment -%} ── BOTÓN CARRITO (fuera del <a> para no anidar interactivos) ── {%- endcomment -%}
+  <div class="gds-card-cta">
+    <button
+      class="gds-btn-cart"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      data-product-handle="{{ product.handle }}"
+      data-price="{{ product.price }}"
+      {% unless product.available %}disabled aria-disabled="true"{% endunless %}
+      aria-label="Agregar {{ product.title }} al carrito"
+      type="button"
+    >
+      {%- if product.available -%}
+        Agregar al carrito
+      {%- else -%}
+        Sin stock
+      {%- endif -%}
+    </button>
+  </div>
+
+</article>

@@ -1,44 +1,38 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "header",
   "name": "Header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
+    "gds_announcement_bar": {
+      "type": "gds-announcement-bar",
       "blocks": {
-        "announcement_BxgCk9": {
-          "type": "_announcement",
+        "ann_1": {
+          "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
+            "text": "🌎 Enviamos a toda América Latina y el mundo",
+            "url": ""
+          }
+        },
+        "ann_2": {
+          "type": "announcement",
+          "settings": {
+            "text": "🐾 Productos premium para tu mascota con envío incluido",
+            "url": ""
+          }
+        },
+        "ann_3": {
+          "type": "announcement",
+          "settings": {
+            "text": "⭐ Más de 10.000 mascotas felices en toda América",
+            "url": ""
+          }
         }
       },
-      "block_order": [
-        "announcement_BxgCk9"
-      ],
-      "name": "t:names.announcement_bar",
+      "block_order": ["ann_1", "ann_2", "ann_3"],
       "settings": {
-        "speed": 5,
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "divider_width": 1,
-        "padding-block-start": 15,
-        "padding-block-end": 15
+        "bg_color": "#F5C518",
+        "text_color": "#0D1B4B",
+        "rotation_speed": 5,
+        "show_arrows": true
       }
     },
     "header_section": {
@@ -87,8 +81,8 @@
         "search_position": "right",
         "search_row": "top",
         "show_country": true,
-        "country_selector_style": false,
-        "show_language": true,
+        "country_selector_style": true,
+        "show_language": false,
         "localization_font": "heading",
         "localization_font_size": "0.875rem",
         "localization_position": "right",
@@ -112,7 +106,7 @@
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
+    "gds_announcement_bar",
     "header_section"
   ]
 }

@@ -1,0 +1,23 @@
+{%- if localization.available_countries.size > 1 -%}
+  <div class="gds-localization">
+    {%- form "localization", id: "gds-loc-form" -%}
+      <select
+        name="country_code"
+        aria-label="País y moneda"
+        onchange="document.getElementById('gds-loc-form').submit()"
+        class="gds-currency-select"
+      >
+        {%- for country in localization.available_countries -%}
+          <option value="{{ country.iso_code }}"
+            {%- if country.iso_code == localization.country.iso_code %}
+              selected
+            {%- endif -%}
+          >
+            {{ country.currency.symbol }}
+            {{ country.currency.iso_code }} — {{ country.name }}
+          </option>
+        {%- endfor -%}
+      </select>
+    {%- endform -%}
+  </div>
+{%- endif -%}

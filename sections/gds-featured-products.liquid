@@ -1,0 +1,207 @@
+{%- liquid
+  assign tab1_col     = collections[section.settings.tab1_collection]
+  assign tab2_col     = collections[section.settings.tab2_collection]
+  assign tab3_col     = collections[section.settings.tab3_collection]
+  assign products_limit = section.settings.products_per_tab
+-%}
+
+<section class="gds-products">
+  <div class="gds-container">
+
+    {%- comment -%} data-tabs envuelve botones + paneles para que el JS los encuentre {%- endcomment -%}
+    <div data-tabs>
+
+      <div class="gds-prod-header">
+        <div>
+          <h2>{{ section.settings.title }}</h2>
+          {%- if section.settings.subtitle != blank -%}
+            <p>{{ section.settings.subtitle }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="gds-tabs" role="tablist" aria-label="{{ section.settings.title }}">
+          <button
+            class="gds-tab gds-tab--active"
+            role="tab"
+            data-tab="tab1"
+            aria-selected="true"
+          >{{ section.settings.tab1_label }}</button>
+
+          <button
+            class="gds-tab"
+            role="tab"
+            data-tab="tab2"
+            aria-selected="false"
+          >{{ section.settings.tab2_label }}</button>
+
+          <button
+            class="gds-tab"
+            role="tab"
+            data-tab="tab3"
+            aria-selected="false"
+          >{{ section.settings.tab3_label }}</button>
+        </div>
+      </div>
+
+      {%- comment -%} TAB 1 — visible por defecto (sin hidden) {%- endcomment -%}
+      <div
+        class="gds-tab-panel gds-prod-grid"
+        data-tab-panel="tab1"
+        role="tabpanel"
+        aria-label="{{ section.settings.tab1_label }}"
+      >
+        {%- for product in tab1_col.products limit: products_limit -%}
+          {%- render 'gds-product-card', product: product -%}
+        {%- else -%}
+          <p class="gds-empty-collection">Pronto agregaremos más productos aquí.</p>
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} TAB 2 — oculto inicialmente {%- endcomment -%}
+      <div
+        class="gds-tab-panel gds-prod-grid"
+        data-tab-panel="tab2"
+        role="tabpanel"
+        aria-label="{{ section.settings.tab2_label }}"
+        hidden
+      >
+        {%- for product in tab2_col.products limit: products_limit -%}
+          {%- render 'gds-product-card', product: product -%}
+        {%- else -%}
+          <p class="gds-empty-collection">Pronto agregaremos más productos aquí.</p>
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} TAB 3 — oculto inicialmente {%- endcomment -%}
+      <div
+        class="gds-tab-panel gds-prod-grid"
+        data-tab-panel="tab3"
+        role="tabpanel"
+        aria-label="{{ section.settings.tab3_label }}"
+        hidden
+      >
+        {%- for product in tab3_col.products limit: products_limit -%}
+          {%- render 'gds-product-card', product: product -%}
+        {%- else -%}
+          <p class="gds-empty-collection">Pronto agregaremos más productos aquí.</p>
+        {%- endfor -%}
+      </div>
+
+    </div>{%- comment -%} /data-tabs {%- endcomment -%}
+
+    {%- if section.settings.show_view_all -%}
+      <div class="gds-see-all">
+        <a href="{{ routes.all_products_collection_url }}" class="gds-btn gds-btn--outline-navy">
+          Ver todos los productos &rarr;
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .gds-empty-collection {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--gds-gray, #6b7280);
+    padding: 48px 0;
+    font-size: .9rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Productos GDS",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título de sección",
+      "default": "Productos Destacados"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Los favoritos de nuestros clientes"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1"
+    },
+    {
+      "type": "text",
+      "id": "tab1_label",
+      "label": "Etiqueta del tab",
+      "default": "Destacados"
+    },
+    {
+      "type": "text",
+      "id": "tab1_collection",
+      "label": "Handle de la colección",
+      "info": "Ej: destacados",
+      "default": "destacados"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2"
+    },
+    {
+      "type": "text",
+      "id": "tab2_label",
+      "label": "Etiqueta del tab",
+      "default": "Perros"
+    },
+    {
+      "type": "text",
+      "id": "tab2_collection",
+      "label": "Handle de la colección",
+      "info": "Ej: perros",
+      "default": "perros"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3"
+    },
+    {
+      "type": "text",
+      "id": "tab3_label",
+      "label": "Etiqueta del tab",
+      "default": "Gatos"
+    },
+    {
+      "type": "text",
+      "id": "tab3_collection",
+      "label": "Handle de la colección",
+      "info": "Ej: gatos",
+      "default": "gatos"
+    },
+    {
+      "type": "header",
+      "content": "Configuración general"
+    },
+    {
+      "type": "range",
+      "id": "products_per_tab",
+      "label": "Productos por tab",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Mostrar botón 'Ver todos los productos'",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Productos GDS"
+    }
+  ]
+}
+{% endschema %}
