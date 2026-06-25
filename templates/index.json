@@ -84,6 +84,7 @@
         "banner-perros": {
           "type": "banner",
           "settings": {
+            "image": "shopify://shop_images/perro_portada.png",
             "title": "Accesorios para Perros",
             "subtitle": "",
             "button_label": "Ver colección",
@@ -94,6 +95,7 @@
         "banner-gatos": {
           "type": "banner",
           "settings": {
+            "image": "shopify://shop_images/gato_portada.png",
             "title": "Accesorios para Gatos",
             "subtitle": "",
             "button_label": "Ver colección",
