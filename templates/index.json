@@ -6,16 +6,20 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero": {
       "type": "gds-hero-banner",
       "settings": {
+        "image": "shopify://shop_images/Portada_principal.png",
         "heading": "Todo lo que tu mascota",
         "heading_line2": "necesita en un solo lugar",
         "subheading": "Productos premium para perros y gatos. Envíos a toda América.",
         "button_label": "Ver productos",
-        "button_secondary_label": "Ver ofertas"
+        "button_url": "",
+        "button_secondary_label": "Ver ofertas",
+        "button_secondary_url": ""
       }
     },
     "categories": {
@@ -26,7 +30,8 @@
           "settings": {
             "label": "Perros",
             "collection_handle": "perros",
-            "icon_type": "perro"
+            "icon_type": "perro",
+            "custom_svg": ""
           }
         },
         "bloque-gatos": {
@@ -34,7 +39,8 @@
           "settings": {
             "label": "Gatos",
             "collection_handle": "gatos",
-            "icon_type": "gato"
+            "icon_type": "gato",
+            "custom_svg": ""
           }
         },
         "bloque-destacados": {
@@ -42,21 +48,34 @@
           "settings": {
             "label": "Destacados",
             "collection_handle": "destacados",
-            "icon_type": "custom"
+            "icon_type": "custom",
+            "custom_svg": ""
           }
         }
       },
-      "block_order": ["bloque-perros", "bloque-gatos", "bloque-destacados"],
-      "settings": {}
+      "block_order": [
+        "bloque-perros",
+        "bloque-gatos",
+        "bloque-destacados"
+      ],
+      "settings": {
+        "title": "Comprá por Categoría",
+        "subtitle": "Encontrá todo lo que necesita tu mascota en un solo lugar"
+      }
     },
     "featured": {
       "type": "gds-featured-products",
       "settings": {
         "title": "Productos Destacados",
+        "subtitle": "Los favoritos de nuestros clientes",
+        "tab1_label": "Destacados",
         "tab1_collection": "destacados",
+        "tab2_label": "Perros",
         "tab2_collection": "perros",
+        "tab3_label": "Gatos",
         "tab3_collection": "gatos",
-        "products_per_tab": 3
+        "products_per_tab": 3,
+        "show_view_all": true
       }
     },
     "banners": {
@@ -66,6 +85,7 @@
           "type": "banner",
           "settings": {
             "title": "Accesorios para Perros 🐶",
+            "subtitle": "",
             "button_label": "Ver colección",
             "button_url": "/collections/perros",
             "overlay_opacity": 40
@@ -75,19 +95,42 @@
           "type": "banner",
           "settings": {
             "title": "Accesorios para Gatos 🐱",
+            "subtitle": "",
             "button_label": "Ver colección",
             "button_url": "/collections/gatos",
             "overlay_opacity": 40
           }
         }
       },
-      "block_order": ["banner-perros", "banner-gatos"],
+      "block_order": [
+        "banner-perros",
+        "banner-gatos"
+      ],
       "settings": {}
     },
     "footer": {
       "type": "gds-footer",
-      "settings": {}
+      "settings": {
+        "brand_description": "Productos premium para perros y gatos. Enviamos a toda América Latina y el mundo hispanohablante.",
+        "social_instagram": "",
+        "social_tiktok": "",
+        "social_facebook": "",
+        "social_youtube": "",
+        "footer_menu": "main-menu",
+        "footer_help_menu": "",
+        "newsletter_title": "Novedades y ofertas",
+        "newsletter_subtitle": "Suscribite y enterate primero",
+        "newsletter_placeholder": "Tu correo electrónico",
+        "newsletter_button": "Suscribirme",
+        "copyright_text": "2026 GDS Animal."
+      }
     }
   },
-  "order": ["hero", "categories", "featured", "banners", "footer"]
+  "order": [
+    "hero",
+    "categories",
+    "featured",
+    "banners",
+    "footer"
+  ]
 }
